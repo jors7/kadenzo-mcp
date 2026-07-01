@@ -1,0 +1,13 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - kadenzoApiKey
+    properties:
+      kadenzoApiKey:
+        type: string
+        title: Kadenzo API Key
+        description: Generate one at studio.kadenzo.app/dashboard/settings?section=api (paid plans).
+  commandFunction: |-
+    (config) => ({ command: 'npx', args: ['-y', 'kadenzo-mcp'], env: { KADENZO_API_KEY: config.kadenzoApiKey } })
