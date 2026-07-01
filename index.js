@@ -16,12 +16,15 @@ import { basename } from 'node:path'
 const API_KEY = process.env.KADENZO_API_KEY
 const BASE = (process.env.KADENZO_API_BASE || 'https://studio.kadenzo.app/api/v1').replace(/\/$/, '')
 
+// Note: we do NOT exit when KADENZO_API_KEY is missing — the server still starts
+// and can be introspected (tools/list works without a key). A key is only needed
+// when a tool is actually called; missing-key errors surface per-call instead.
 if (!API_KEY) {
-  console.error('KADENZO_API_KEY is not set. Generate a key at https://studio.kadenzo.app/dashboard/settings?section=api and set it in your MCP client config.')
-  process.exit(1)
+  console.error('KADENZO_API_KEY is not set — the server will start and list tools, but calls will fail until it is set. Generate a key at https://studio.kadenzo.app/dashboard/settings?section=api')
 }
 
 async function api(method, path, { body, query } = {}) {
+  if (!API_KEY) throw new Error('KADENZO_API_KEY is not set. Generate one at studio.kadenzo.app/dashboard/settings?section=api and set it in your MCP client config.')
   const url = new URL(BASE + path)
   if (query) for (const [k, v] of Object.entries(query)) if (v != null) url.searchParams.set(k, String(v))
   const res = await fetch(url, {
@@ -120,6 +123,7 @@ server.tool(
   { path: z.string().describe('Absolute path to a local image/video file.') },
   async ({ path }) => {
     try {
+      if (!API_KEY) throw new Error('KADENZO_API_KEY is not set. Generate one at studio.kadenzo.app/dashboard/settings?section=api')
       const buf = await readFile(path)
       const fd = new FormData()
       fd.append('file', new Blob([buf]), basename(path))

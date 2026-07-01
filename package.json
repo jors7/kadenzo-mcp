@@ -1,6 +1,6 @@
 {
   "name": "kadenzo-mcp",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "mcpName": "io.github.jors7/kadenzo-mcp",
   "description": "MCP server for Kadenzo — schedule, manage, generate, and analyze social posts across 11 networks from any AI agent (Claude, Cursor, ChatGPT).",
   "type": "module",
