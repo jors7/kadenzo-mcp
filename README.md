@@ -1,5 +1,7 @@
 # Kadenzo MCP server
 
+[![Kadenzo/kadenzo-mcp MCP server](https://glama.ai/mcp/servers/Kadenzo/kadenzo-mcp/badge)](https://glama.ai/mcp/servers/Kadenzo/kadenzo-mcp)
+
 Connect any MCP-capable AI agent — **Claude Desktop, Cursor, ChatGPT, Codex** — to
 [Kadenzo](https://kadenzo.app) and let it schedule, manage, and analyze social posts
 across **11 networks** (Instagram, TikTok, X, LinkedIn, YouTube, Facebook, Pinterest,
